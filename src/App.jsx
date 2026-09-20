@@ -22,6 +22,10 @@ import MerchantInventory from './pages/merchant/MerchantInventory'
 import MerchantOrders from './pages/merchant/MerchantOrders'
 import MerchantSales from './pages/merchant/MerchantSales'
 
+// Customer Pages
+import CustomerHome from './pages/customer/CustomerHome'
+import CustomerCart from './pages/customer/CustomerCart'
+
 function App() {
   return (
     <Router>
@@ -32,16 +36,21 @@ function App() {
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
               <Link className="navbar-brand fw-bold" to="/">🏠 DecorNest</Link>
               <div className="navbar-nav">
+                <Link className="nav-link" to="/store">Customer Storefront</Link>
                 <Link className="nav-link" to="/admin">Admin Dashboard</Link>
                 <Link className="nav-link" to="/merchant">Merchant Dashboard</Link>
               </div>
             </nav>
             <div className="container text-center py-5">
               <h2>Welcome to DecorNest Setup Page</h2>
-              <p>Select Admin or Merchant Dashboard above to navigate.</p>
+              <p>Select Customer Storefront, Admin, or Merchant Dashboard above to navigate.</p>
             </div>
           </div>
         } />
+
+        {/* Customer Storefront Routes */}
+        <Route path="/store" element={<CustomerHome />} />
+        <Route path="/store/cart" element={<CustomerCart />} />
 
         {/* Admin Routes */}
         <Route path="/admin/*" element={
