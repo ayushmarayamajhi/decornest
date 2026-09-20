@@ -25,6 +25,8 @@ import MerchantSales from './pages/merchant/MerchantSales'
 // Customer Pages
 import CustomerHome from './pages/customer/CustomerHome'
 import CustomerCart from './pages/customer/CustomerCart'
+import CustomerProductDetail from './pages/customer/CustomerProductDetail'
+import CustomerCheckout from './pages/customer/CustomerCheckout'
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
         {/* Customer Storefront Routes */}
         <Route path="/store" element={<CustomerHome />} />
         <Route path="/store/cart" element={<CustomerCart />} />
+        <Route path="/store/product/:id" element={<CustomerProductDetail />} />
+        <Route path="/store/checkout" element={<CustomerCheckout />} />
 
         {/* Admin Routes */}
         <Route path="/admin/*" element={

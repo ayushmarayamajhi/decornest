@@ -1,5 +1,6 @@
 import React from 'react'
 import CustomerNavbar from '../../components/CustomerNavbar'
+import { Link } from 'react-router-dom'
 
 function CustomerHome() {
   const featuredProducts = [
@@ -14,23 +15,23 @@ function CustomerHome() {
       <CustomerNavbar />
       
       {/* Hero Banner */}
-<div 
-  className="text-white text-center py-5 mb-5 shadow-sm" 
-  style={{ 
-    background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&auto=format&fit=crop&q=60")', 
-    backgroundSize: 'cover', 
-    backgroundPosition: 'center',
-    minHeight: '380px',
-    display: 'flex',
-    alignItems: 'center'
-  }}
->
-  <div className="container py-4">
-    <h1 className="display-4 fw-bold text-white mb-3">Elevate Your Living Space</h1>
-    <p className="lead text-light mb-4">Discover unique, handcrafted decor items from verified independent artisans.</p>
-    <button className="btn btn-primary btn-lg fw-bold px-4 py-2">Explore Marketplace</button>
-  </div>
-</div>
+      <div 
+        className="text-white text-center py-5 mb-5 shadow-sm" 
+        style={{ 
+          background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&auto=format&fit=crop&q=60")', 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center',
+          minHeight: '380px',
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <div className="container py-4">
+          <h1 className="display-4 fw-bold text-white mb-3">Elevate Your Living Space</h1>
+          <p className="lead text-light mb-4">Discover unique, handcrafted decor items from verified independent artisans.</p>
+          <button className="btn btn-primary btn-lg fw-bold px-4 py-2">Explore Marketplace</button>
+        </div>
+      </div>
 
       {/* Featured Products Grid */}
       <div className="container pb-5">
@@ -39,14 +40,18 @@ function CustomerHome() {
           {featuredProducts.map((product) => (
             <div key={product.id} className="col-md-3">
               <div className="card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
-                <img src={product.image} className="card-img-top" alt={product.name} style={{ height: '220px', objectFit: 'cover' }} />
+                <Link to={`/store/product/${product.id}`}>
+                  <img src={product.image} className="card-img-top" alt={product.name} style={{ height: '220px', objectFit: 'cover' }} />
+                </Link>
                 <div className="card-body d-flex flex-column">
                   <span className="badge bg-secondary mb-2 w-auto align-self-start">{product.category}</span>
-                  <h5 className="card-title fw-bold">{product.name}</h5>
+                  <Link to={`/store/product/${product.id}`} className="text-decoration-none text-dark">
+                    <h5 className="card-title fw-bold">{product.name}</h5>
+                  </Link>
                   <p className="card-text text-primary fw-bold fs-5 mb-3">{product.price}</p>
-                  <button className="btn btn-outline-primary mt-auto w-100">
+                  <Link to="/store/cart" className="btn btn-outline-primary mt-auto w-100">
                     <i className="bi bi-cart-plus me-2"></i>Add to Cart
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

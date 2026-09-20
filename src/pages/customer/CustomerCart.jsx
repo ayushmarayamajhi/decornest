@@ -51,8 +51,12 @@ function CustomerCart() {
                 <span>Total</span>
                 <span className="text-primary">${subtotal.toFixed(2)}</span>
               </div>
-              <button className="btn btn-primary w-100 py-2 fw-bold">Proceed to Checkout</button>
-              <Link to="/store" className="btn btn-link text-decoration-none w-100 text-center mt-2">Continue Shopping</Link>
+              <Link to="/store/checkout" className="btn btn-primary w-100 py-2 fw-bold text-center text-decoration-none">
+                Proceed to Checkout
+              </Link>
+              <Link to="/store" className="btn btn-link text-decoration-none w-100 text-center mt-2">
+                Continue Shopping
+              </Link>
             </div>
           </div>
         </div>
