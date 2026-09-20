@@ -1,16 +1,53 @@
-# React + Vite
+# 🏠 DecorNest - Multi-Vendor Home Décor Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**DecorNest** is a modern, responsive multi-vendor e-commerce web application built using **React**, **Vite**, **Bootstrap 5**, and **React Router DOM**. It provides a structured platform connecting independent home decor artisans and merchants with customer buyers, backed by centralized platform administration.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Key Features
 
-## React Compiler
+### 🛍️ Customer Storefront (`/store`)
+- **Product Catalog**: Dynamic product grid with real-time keyword search, category filtering, and price sorting (Low to High / High to Low).
+- **Product Detail View**: Dedicated single-product view with description, image preview, quantity selectors, and direct cart actions.
+- **Global Cart State & Persistence**: Context-driven shopping cart (`CartContext`) integrated with `localStorage` for cross-session cart retention.
+- **Checkout & Order Flow**: Multi-step checkout form supporting Cash on Delivery (COD) and Digital Wallets (eSewa, Khalti, Fonepay), leading to dynamic order confirmation pages.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🏪 Merchant Portal (`/merchant`)
+- **Merchant Dashboard**: Analytics overview showcasing total revenue, active orders, stock alerts, and quick actions.
+- **Product Management**: Interactive modal interface to add new product listings with image URLs, categories, prices, and stock counts.
+- **Order Processing**: Real-time status management dropdowns (Pending, Processing, Shipped, Delivered) for customer orders.
 
-## Expanding the ESLint configuration
+### 🛡️ Admin Portal (`/admin`)
+- **Platform Analytics**: High-level platform health metrics across registered merchants, active buyers, catalog size, and system revenue.
+- **Merchant Verification**: Approval and revocation workflows for onboarded sellers.
+- **Category Taxonomy**: Dynamic product category creation modal and deletion controls.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: React 18 (Vite build tool)
+- **Routing**: React Router DOM v6
+- **Styling**: Bootstrap 5 + Bootstrap Icons
+- **State Management**: React Context API (`CartContext`) + LocalStorage
+- **Version Control**: Git & GitHub
+
+---
+
+## 📁 Folder Structure
+
+```text
+decornest/
+├── public/               # Static assets
+├── src/
+│   ├── components/       # Reusable UI components (Navbars, Sidebars)
+│   ├── context/          # React Context providers (CartContext.jsx)
+│   ├── layouts/          # Admin & Merchant layout wrappers
+│   ├── pages/            # Page view modules
+│   │   ├── admin/        # Platform admin management views
+│   │   ├── customer/     # Storefront shopping views
+│   │   └── merchant/     # Seller dashboard views
+│   ├── App.jsx           # Master route configuration
+│   └── main.jsx          # Application entry point
+├── package.json
+└── README.md
