@@ -12,7 +12,6 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Redirect based on selected role
     if (role === 'admin') {
       navigate('/admin/dashboard')
     } else if (role === 'merchant') {
@@ -31,7 +30,6 @@ function Login() {
             <p className="text-muted">Welcome back! Sign in to continue</p>
           </div>
 
-          {/* Role Selector Tabs */}
           <div className="btn-group w-100 mb-4" role="group">
             <button
               type="button"

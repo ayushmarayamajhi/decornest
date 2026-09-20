@@ -3,13 +3,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 const CartContext = createContext()
 
 export function CartProvider({ children }) {
-  // Load initial cart state from LocalStorage if available
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem('decorNestCart')
     return savedCart ? JSON.parse(savedCart) : []
   })
 
-  // Sync cart items to LocalStorage whenever cartItems changes
   useEffect(() => {
     localStorage.setItem('decorNestCart', JSON.stringify(cartItems))
   }, [cartItems])
@@ -64,3 +62,5 @@ export function CartProvider({ children }) {
 export function useCart() {
   return useContext(CartContext)
 }
+
+export default CartContext
