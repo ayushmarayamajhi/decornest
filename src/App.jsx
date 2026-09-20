@@ -28,6 +28,7 @@ import CustomerHome from './pages/customer/CustomerHome'
 import CustomerCart from './pages/customer/CustomerCart'
 import CustomerProductDetail from './pages/customer/CustomerProductDetail'
 import CustomerCheckout from './pages/customer/CustomerCheckout'
+import CustomerOrderSuccess from './pages/customer/CustomerOrderSuccess'
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path="/store/cart" element={<CustomerCart />} />
           <Route path="/store/product/:id" element={<CustomerProductDetail />} />
           <Route path="/store/checkout" element={<CustomerCheckout />} />
+          <Route path="/store/order-success" element={<CustomerOrderSuccess />} />
 
           {/* Admin Routes */}
           <Route path="/admin/*" element={
