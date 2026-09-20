@@ -1,49 +1,79 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function MerchantOrders() {
-  const orders = [
-    { id: 'ORD-1001', customer: 'Sarah Jenkins', total: '$265.00', date: '2026-09-18', status: 'Pending' },
-    { id: 'ORD-1002', customer: 'David Miller', total: '$45.00', date: '2026-09-19', status: 'Shipped' },
-    { id: 'ORD-1003', customer: 'Emma Watson', total: '$120.00', date: '2026-09-20', status: 'Delivered' },
-  ]
+  const [orders, setOrders] = useState([
+    { id: 'ORD-9821', customer: 'Sujan Shrestha', items: 'Nordic Ceramic Vase (x1)', total: 45.00, status: 'Pending', date: '2026-03-28' },
+    { id: 'ORD-9820', customer: 'Aisha Khan', items: 'Modern Brass Table Lamp (x2)', total: 156.00, status: 'Processing', date: '2026-03-27' },
+    { id: 'ORD-9818', customer: 'Rohan Sharma', items: 'Minimalist Wall Clock (x1)', total: 35.00, status: 'Shipped', date: '2026-03-25' }
+  ])
+
+  const handleStatusChange = (id, newStatus) => {
+    setOrders(orders.map(o => o.id === id ? { ...o, status: newStatus } : o))
+  }
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'Pending': return 'bg-warning text-dark'
+      case 'Processing': return 'bg-info text-dark'
+      case 'Shipped': return 'bg-primary'
+      case 'Delivered': return 'bg-success'
+      default: return 'bg-secondary'
+    }
+  }
 
   return (
-    <div className="container-fluid">
-      <h2 className="h3 text-success mb-4"><i className="bi bi-bag-check me-2"></i>Store Orders</h2>
+    <div className="container-fluid p-4">
+      <div className="mb-4">
+        <h2 className="fw-bold mb-1">Customer Orders</h2>
+        <p className="text-muted mb-0">Track customer orders and update dispatch status</p>
+      </div>
+
       <div className="card border-0 shadow-sm">
         <div className="card-body p-0">
-          <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
-              <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Total</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order.id}>
-                  <td className="fw-bold">{order.id}</td>
-                  <td>{order.customer}</td>
-                  <td>{order.total}</td>
-                  <td>{order.date}</td>
-                  <td>
-                    <span className={`badge ${
-                      order.status === 'Pending' ? 'bg-warning text-dark' : order.status === 'Shipped' ? 'bg-info text-dark' : 'bg-success'
-                    }`}>
-                      {order.status}
-                    </span>
-                  </td>
-                  <td>
-                    <button className="btn btn-sm btn-outline-primary"><i className="bi bi-eye"></i> View</button>
-                  </td>
+          <div className="table-responsive">
+            <table className="table table-hover align-middle mb-0">
+              <thead className="table-light">
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Items Ordered</th>
+                  <th>Total</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Update Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {orders.map((o) => (
+                  <tr key={o.id}>
+                    <td className="fw-bold">{o.id}</td>
+                    <td>{o.customer}</td>
+                    <td>{o.items}</td>
+                    <td className="fw-semibold">${o.total.toFixed(2)}</td>
+                    <td className="text-muted small">{o.date}</td>
+                    <td>
+                      <span className={`badge ${getStatusBadge(o.status)}`}>
+                        {o.status}
+                      </span>
+                    </td>
+                    <td>
+                      <select 
+                        value={o.status} 
+                        onChange={(e) => handleStatusChange(o.id, e.target.value)}
+                        className="form-select form-select-sm" 
+                        style={{ width: '130px' }}
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
