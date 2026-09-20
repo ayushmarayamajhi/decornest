@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { CartProvider } from './context/CartContext'
 
 import AdminLayout from './layouts/AdminLayout'
 import MerchantLayout from './layouts/MerchantLayout'
@@ -30,63 +31,65 @@ import CustomerCheckout from './pages/customer/CustomerCheckout'
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Main Landing Route */}
-        <Route path="/" element={
-          <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-              <Link className="navbar-brand fw-bold" to="/">🏠 DecorNest</Link>
-              <div className="navbar-nav">
-                <Link className="nav-link" to="/store">Customer Storefront</Link>
-                <Link className="nav-link" to="/admin">Admin Dashboard</Link>
-                <Link className="nav-link" to="/merchant">Merchant Dashboard</Link>
+    <CartProvider>
+      <Router>
+        <Routes>
+          {/* Main Landing Route */}
+          <Route path="/" element={
+            <div>
+              <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+                <Link className="navbar-brand fw-bold" to="/">🏠 DecorNest</Link>
+                <div className="navbar-nav">
+                  <Link className="nav-link" to="/store">Customer Storefront</Link>
+                  <Link className="nav-link" to="/admin">Admin Dashboard</Link>
+                  <Link className="nav-link" to="/merchant">Merchant Dashboard</Link>
+                </div>
+              </nav>
+              <div className="container text-center py-5">
+                <h2>Welcome to DecorNest Setup Page</h2>
+                <p>Select Customer Storefront, Admin, or Merchant Dashboard above to navigate.</p>
               </div>
-            </nav>
-            <div className="container text-center py-5">
-              <h2>Welcome to DecorNest Setup Page</h2>
-              <p>Select Customer Storefront, Admin, or Merchant Dashboard above to navigate.</p>
             </div>
-          </div>
-        } />
+          } />
 
-        {/* Customer Storefront Routes */}
-        <Route path="/store" element={<CustomerHome />} />
-        <Route path="/store/cart" element={<CustomerCart />} />
-        <Route path="/store/product/:id" element={<CustomerProductDetail />} />
-        <Route path="/store/checkout" element={<CustomerCheckout />} />
+          {/* Customer Storefront Routes */}
+          <Route path="/store" element={<CustomerHome />} />
+          <Route path="/store/cart" element={<CustomerCart />} />
+          <Route path="/store/product/:id" element={<CustomerProductDetail />} />
+          <Route path="/store/checkout" element={<CustomerCheckout />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin/*" element={
-          <AdminLayout>
-            <Routes>
-              <Route path="/" element={<AdminDashboard />} />
-              <Route path="/customers" element={<AdminCustomers />} />
-              <Route path="/merchants" element={<AdminMerchants />} />
-              <Route path="/products" element={<AdminProducts />} />
-              <Route path="/categories" element={<AdminCategories />} />
-              <Route path="/orders" element={<AdminOrders />} />
-              <Route path="/reviews" element={<AdminReviews />} />
-              <Route path="/reports" element={<AdminReports />} />
-            </Routes>
-          </AdminLayout>
-        } />
+          {/* Admin Routes */}
+          <Route path="/admin/*" element={
+            <AdminLayout>
+              <Routes>
+                <Route path="/" element={<AdminDashboard />} />
+                <Route path="/customers" element={<AdminCustomers />} />
+                <Route path="/merchants" element={<AdminMerchants />} />
+                <Route path="/products" element={<AdminProducts />} />
+                <Route path="/categories" element={<AdminCategories />} />
+                <Route path="/orders" element={<AdminOrders />} />
+                <Route path="/reviews" element={<AdminReviews />} />
+                <Route path="/reports" element={<AdminReports />} />
+              </Routes>
+            </AdminLayout>
+          } />
 
-        {/* Merchant Routes */}
-        <Route path="/merchant/*" element={
-          <MerchantLayout>
-            <Routes>
-              <Route path="/" element={<MerchantDashboard />} />
-              <Route path="/store" element={<MerchantStore />} />
-              <Route path="/products" element={<MerchantProducts />} />
-              <Route path="/inventory" element={<MerchantInventory />} />
-              <Route path="/orders" element={<MerchantOrders />} />
-              <Route path="/sales" element={<MerchantSales />} />
-            </Routes>
-          </MerchantLayout>
-        } />
-      </Routes>
-    </Router>
+          {/* Merchant Routes */}
+          <Route path="/merchant/*" element={
+            <MerchantLayout>
+              <Routes>
+                <Route path="/" element={<MerchantDashboard />} />
+                <Route path="/store" element={<MerchantStore />} />
+                <Route path="/products" element={<MerchantProducts />} />
+                <Route path="/inventory" element={<MerchantInventory />} />
+                <Route path="/orders" element={<MerchantOrders />} />
+                <Route path="/sales" element={<MerchantSales />} />
+              </Routes>
+            </MerchantLayout>
+          } />
+        </Routes>
+      </Router>
+    </CartProvider>
   )
 }
 
