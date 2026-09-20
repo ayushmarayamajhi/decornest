@@ -1,56 +1,48 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 const CartContext = createContext()
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([
-    { 
-      id: 1, 
-      name: 'Nordic Ceramic Vase', 
-      price: 45.00, 
-      quantity: 1, 
-      image: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=500&auto=format&fit=crop&q=60' 
-    },
-    { 
-      id: 2, 
-      name: 'Modern Brass Table Lamp', 
-      price: 78.00, 
-      quantity: 1, 
-      image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop&q=60' 
-    }
-  ])
+  // Load initial cart state from LocalStorage if available
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem('decorNestCart')
+    return savedCart ? JSON.parse(savedCart) : []
+  })
 
-  // Add item to cart or update quantity if it already exists
-  const addToCart = (product, qty = 1) => {
+  // Sync cart items to LocalStorage whenever cartItems changes
+  useEffect(() => {
+    localStorage.setItem('decorNestCart', JSON.stringify(cartItems))
+  }, [cartItems])
+
+  const addToCart = (product, quantity = 1) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id)
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + qty } : item
-        )
+      const existingIndex = prevItems.findIndex((item) => item.id === product.id)
+      if (existingIndex > -1) {
+        const updated = [...prevItems]
+        updated[existingIndex].quantity += quantity
+        return updated
+      } else {
+        return [...prevItems, { ...product, quantity }]
       }
-      return [...prevItems, { ...product, quantity: qty }]
     })
   }
 
-  // Remove an item from the cart
   const removeFromCart = (id) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id))
   }
 
-  // Update quantity of an item
-  const updateQuantity = (id, newQty) => {
-    if (newQty < 1) return
+  const updateQuantity = (id, quantity) => {
     setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, quantity: newQty } : item))
+      prevItems.map((item) => (item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item))
     )
   }
 
-  // Calculate total number of items for navbar badge
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  const clearCart = () => {
+    setCartItems([])
+  }
 
-  // Calculate subtotal
-  const cartSubtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
+  const cartSubtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
 
   return (
     <CartContext.Provider
@@ -59,7 +51,8 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         updateQuantity,
-        totalCartCount,
+        clearCart,
+        cartCount,
         cartSubtotal
       }}
     >
